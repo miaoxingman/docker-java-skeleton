@@ -35,6 +35,9 @@ import com.google.common.base.Preconditions;
 import com.miaoxingman.docker.client.DockerException;
 import com.miaoxingman.docker.client.command.CommandFactory;
 import com.miaoxingman.docker.client.command.DefaultCommandFactory;
+import com.miaoxingman.docker.client.command.ListImagesCmd;
+import com.miaoxingman.docker.client.command.PullImageCmd;
+import com.miaoxingman.docker.client.command.RemoveImageCmd;
 import com.miaoxingman.docker.client.command.VersionCmd;
 
 public class DockerClient {
@@ -72,110 +75,17 @@ public class DockerClient {
         return cmdFactory.versionCmd().WithResource(baseResource);
     }
 
-    public ClientResponse pull(String repository) throws DockerException {
-        return this.pull(repository, null, null);
+
+    public PullImageCmd pullImageCmd(String repository) throws DockerException {
+        return cmdFactory.pullImageCmd(repository).WithResource(baseResource);
     }
 
-    public ClientResponse pull(String repository, String tag) throws DockerException {
-        return this.pull(repository, tag, null);
+    public ListImagesCmd listImagesCmd() throws DockerException {
+        return cmdFactory.listImagesCmd().WithResource(baseResource);
     }
 
-    public ClientResponse pull(String repository, String tag, String registry)
-            throws DockerException {
-        Preconditions.checkNotNull(repository, "Repository was not specified");
-
-        if(StringUtils.countMatches(repository, ":") == 1) {
-            String repositoryTag[] = StringUtils.split(repository, ":");
-            repository = repositoryTag[0];
-            tag = repositoryTag[1];
-        }
-
-        MultivaluedMap<String,String> params = new MultivaluedMapImpl();
-        params.add("tag", tag);
-        params.add("fromImage", repository);
-        params.add("registry", registry);
-
-        WebResource webResource = jerseyClient.
-                resource(restEndpointUrl + "/images/create").
-                queryParams(params);
-
-        try {
-            LOGGER.trace("POST: {}", webResource);
-            return webResource.accept(MediaType.APPLICATION_OCTET_STREAM_TYPE).post(ClientResponse.class);
-        } catch (UniformInterfaceException e) {
-            throw new DockerException(e);
-        }
+    public RemoveImageCmd removeImageCmd(String imageId) throws DockerException {
+        return cmdFactory.removeImageCmd(imageId).WithResource(baseResource);
     }
-
-    public List<Image> getImages() throws DockerException {
-        return this.getImages(null, false);
-    }
-
-    public List<Image> getImages(boolean allContainers) throws DockerException {
-        return this.getImages(null, allContainers);
-    }
-
-    public List<Image> getImages(String name) throws DockerException {
-        return this.getImages(name, false);
-    }
-
-    public List<Image> getImages(String name, boolean allImages) throws DockerException {
-        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        params.add("filter", name);
-        params.add("all", allImages ? "1" : "0");
-
-        WebResource webResource = jerseyClient
-                .resource(restEndpointUrl + "/images/json")
-                .queryParams(params);
-
-        try {
-            LOGGER.trace("GET: {}", webResource);
-            List<Image> images = webResource
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(new GenericType<List<Image>>() {});
-            LOGGER.trace("Response: {}", images);
-            return images;
-        } catch (UniformInterfaceException exception) {
-            if (exception.getResponse().getStatus() == 400) {
-                throw new DockerException("bad parameter");
-            } else if (exception.getResponse().getStatus() == 500) {
-                throw new DockerException("Server error", exception);
-            } else {
-                throw new DockerException();
-            }
-        }
-    }
-
-    public void removeImage(String imageId) throws DockerException {
-        Preconditions.checkState(!StringUtils.isEmpty(imageId), "Image ID can't be empty");
-
-        try {
-            WebResource webResource = jerseyClient.resource(restEndpointUrl + "/images/" + imageId);
-            LOGGER.trace("DELETE: {}", webResource);
-            webResource.delete();
-        } catch (UniformInterfaceException exception) {
-            if (exception.getResponse().getStatus() == 204) {
-                //no error
-                LOGGER.trace("Successfully removed image " + imageId);
-            } else if (exception.getResponse().getStatus() == 404) {
-                LOGGER.warn("{} no such image", imageId);
-            } else if (exception.getResponse().getStatus() == 409) {
-                throw new DockerException("Conflict");
-            } else if (exception.getResponse().getStatus() == 500) {
-                throw new DockerException("Server error.", exception);
-            } else {
-                throw new DockerException(exception);
-            }
-        }
-    }
-
-    public void removeImages(List<String> images) throws DockerException {
-        Preconditions.checkNotNull(images, "List of images can't be null");
-
-        for (String imageId : images) {
-            removeImage(imageId);
-        }
-    }
-
-    
 }
+

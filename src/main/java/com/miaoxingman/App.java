@@ -26,15 +26,15 @@ public class App
 
     public void PullAndRemoveUbuntuImage() {
         try {
-            ClientResponse response = dockerClient.pull("ubuntu:15.04");
+            ClientResponse response = dockerClient.pullImageCmd("ubuntu:15.04").exec();
             LOG.debug("resposne {}", response.toString());
-            List<Image> images = dockerClient.getImages();
+            List<Image> images = dockerClient.listImagesCmd().exec();
             for( Image image : images) {
                 LOG.debug("image {}", image.toString());
             }
             LOG.debug("remove Images");
-            dockerClient.removeImage("ubuntu:15.04");
-            images = dockerClient.getImages();
+            dockerClient.removeImageCmd("ubuntu:15.04").exec();
+            images = dockerClient.listImagesCmd().exec();
             for( Image image : images) {
                 LOG.debug("image {}", image.toString());
             }

@@ -7,4 +7,19 @@ public class DefaultCommandFactory implements CommandFactory {
         return new VersionCmd();
     }
 
+    @Override
+    public ListImagesCmd listImagesCmd() {
+        return new ListImagesCmd();
+    }
+
+    @Override
+    public PullImageCmd pullImageCmd(String repository) {
+        return new PullImageCmd(repository);
+    }
+
+    @Override
+    public RemoveImageCmd removeImageCmd(String imageId) {
+        return new RemoveImageCmd(imageId);
+    }
+
 }
