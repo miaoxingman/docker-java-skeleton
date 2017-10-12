@@ -1,6 +1,6 @@
 package com.miaoxingman.docker.client;
 
-public class DockerException extends Exception {
+public class DockerException extends RuntimeException {
 
     public DockerException() {
     }
