@@ -35,7 +35,7 @@ public class DockerClientTest extends Assert {
 
     @Test
     public void testDockerVersion() throws DockerException {
-        Version version = dockerClient.version();
+        Version version = dockerClient.versionCmd().exec();
         LOG.info(version.toString());
 
         assertTrue(version.getGoVersion().length() > 0);

@@ -29,16 +29,21 @@ import com.sun.jersey.client.apache4.ApacheHttpClient4Handler;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import com.miaoxingman.docker.client.model.Image;
-import com.miaoxingman.docker.client.model.Version;
 import com.miaoxingman.docker.client.util.JsonClientFilter;
+
 import com.google.common.base.Preconditions;
 import com.miaoxingman.docker.client.DockerException;
+import com.miaoxingman.docker.client.command.CommandFactory;
+import com.miaoxingman.docker.client.command.DefaultCommandFactory;
+import com.miaoxingman.docker.client.command.VersionCmd;
 
 public class DockerClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DockerClient.class);
     private Client jerseyClient;
     private String restEndpointUrl;
+    private final CommandFactory cmdFactory = new DefaultCommandFactory();
+    private final WebResource baseResource;
 
     public DockerClient(String serverUrl) {
         restEndpointUrl = serverUrl + "/v1.12"; //minimum version supported in my docker server
@@ -59,16 +64,12 @@ public class DockerClient {
 
         jerseyClient.addFilter(new JsonClientFilter());
         jerseyClient.addFilter(new LoggingFilter());
+        
+        baseResource = jerseyClient.resource(restEndpointUrl);
     }
 
-    public Version version() throws DockerException {
-        WebResource webResource = jerseyClient.resource(restEndpointUrl + "/version");
-        try {
-            LOGGER.debug("get {}", webResource);
-            return webResource.accept(MediaType.APPLICATION_JSON).get(Version.class);
-        } catch (UniformInterfaceException exception) {
-            throw new DockerException(exception);
-        }
+    public VersionCmd versionCmd() throws DockerException {
+        return cmdFactory.versionCmd().WithResource(baseResource);
     }
 
     public ClientResponse pull(String repository) throws DockerException {
