@@ -1,9 +1,10 @@
 package com.miaoxingman.docker.client.model;
 
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Image {
 
     public String getId() {
@@ -95,7 +96,6 @@ public class Image {
 
     @JsonProperty("Tag")
     private String tag;
-
 
     @JsonProperty("ParentId")
     private String parentId;

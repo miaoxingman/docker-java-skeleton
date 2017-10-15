@@ -1,6 +1,9 @@
 package com.miaoxingman.docker.client.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Version {
 
     public String getVersion() {
@@ -51,6 +54,22 @@ public class Version {
         this.operatingSystem = operatingSystem;
     }
 
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
+
+    public String getBuildTime() {
+        return buildTime;
+    }
+
+    public void setBuildTime(String buildTime) {
+        this.buildTime = buildTime;
+    }
+
     @Override
     public String toString() {
         return "Version{" +
@@ -82,22 +101,6 @@ public class Version {
 
     @JsonProperty("Os")
     private String operatingSystem;
-
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    public void setApiVersion(String apiVersion) {
-        this.apiVersion = apiVersion;
-    }
-
-    public String getBuildTime() {
-        return buildTime;
-    }
-
-    public void setBuildTime(String buildTime) {
-        this.buildTime = buildTime;
-    }
 
     @JsonProperty("ApiVersion")
     private String apiVersion;
