@@ -1,4 +1,4 @@
-package com.miaoxingman.docker.client;
+package com.miaoxingman.docker.client.core;
 
 import java.io.File;
 import java.io.FileInputStream;

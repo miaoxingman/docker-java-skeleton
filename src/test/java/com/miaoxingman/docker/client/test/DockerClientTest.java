@@ -17,10 +17,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.miaoxingman.docker.client.DockerException;
-import com.miaoxingman.docker.client.model.Image;
-import com.miaoxingman.docker.client.model.Version;
-import com.miaoxingman.docker.client.DockerClient;
+import com.miaoxingman.docker.client.api.model.Image;
+import com.miaoxingman.docker.client.api.model.Version;
+import com.miaoxingman.docker.client.core.DockerClient;
+import com.miaoxingman.docker.client.core.DockerException;
 
 public class DockerClientTest extends AbstractDockerClientTest {
 

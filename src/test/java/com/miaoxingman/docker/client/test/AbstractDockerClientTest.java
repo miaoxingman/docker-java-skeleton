@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.ITestResult;
 
-import com.miaoxingman.docker.client.DockerClient;
-import com.miaoxingman.docker.client.DockerException;
+import com.miaoxingman.docker.client.core.DockerClient;
+import com.miaoxingman.docker.client.core.DockerException;
 import com.sun.jersey.api.client.ClientResponse;
 
 public class AbstractDockerClientTest extends Assert {

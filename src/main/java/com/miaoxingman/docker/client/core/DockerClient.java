@@ -1,4 +1,4 @@
-package com.miaoxingman.docker.client;
+package com.miaoxingman.docker.client.core;
 
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
@@ -31,11 +31,16 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache4.ApacheHttpClient4;
 import com.sun.jersey.client.apache4.ApacheHttpClient4Handler;
+<<<<<<< Updated upstream:src/main/java/com/miaoxingman/docker/client/DockerClient.java
 
 import com.miaoxingman.docker.client.util.JsonClientFilter;
 import com.miaoxingman.docker.client.util.SelectiveLoggingFilter;
 import com.miaoxingman.docker.client.Config;
 import com.miaoxingman.docker.client.DockerException;
+=======
+import com.miaoxingman.docker.client.core.Config;
+import com.miaoxingman.docker.client.core.DockerException;
+>>>>>>> Stashed changes:src/main/java/com/miaoxingman/docker/client/core/DockerClient.java
 import com.miaoxingman.docker.client.core.command.CommandFactory;
 import com.miaoxingman.docker.client.core.command.DefaultCommandFactory;
 import com.miaoxingman.docker.client.core.command.ListImagesCmd;

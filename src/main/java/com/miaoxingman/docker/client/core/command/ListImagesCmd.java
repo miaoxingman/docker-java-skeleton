@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
-import com.miaoxingman.docker.client.DockerException;
-import com.miaoxingman.docker.client.model.Image;
+import com.miaoxingman.docker.client.api.model.Image;
+import com.miaoxingman.docker.client.core.DockerException;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;

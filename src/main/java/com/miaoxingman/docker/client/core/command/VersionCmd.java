@@ -5,8 +5,8 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.miaoxingman.docker.client.DockerException;
-import com.miaoxingman.docker.client.model.Version;
+import com.miaoxingman.docker.client.api.model.Version;
+import com.miaoxingman.docker.client.core.DockerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 

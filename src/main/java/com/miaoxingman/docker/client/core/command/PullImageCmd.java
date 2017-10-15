@@ -11,8 +11,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import com.miaoxingman.docker.client.DockerException;
 import com.google.common.base.Preconditions;
+import com.miaoxingman.docker.client.core.DockerException;
 
 public class PullImageCmd extends AbstrDockerCmd<PullImageCmd, ClientResponse> {
 
