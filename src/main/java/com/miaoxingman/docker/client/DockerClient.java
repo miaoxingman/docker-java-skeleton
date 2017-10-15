@@ -36,12 +36,12 @@ import com.miaoxingman.docker.client.util.JsonClientFilter;
 import com.miaoxingman.docker.client.util.SelectiveLoggingFilter;
 import com.miaoxingman.docker.client.Config;
 import com.miaoxingman.docker.client.DockerException;
-import com.miaoxingman.docker.client.command.CommandFactory;
-import com.miaoxingman.docker.client.command.DefaultCommandFactory;
-import com.miaoxingman.docker.client.command.ListImagesCmd;
-import com.miaoxingman.docker.client.command.PullImageCmd;
-import com.miaoxingman.docker.client.command.RemoveImageCmd;
-import com.miaoxingman.docker.client.command.VersionCmd;
+import com.miaoxingman.docker.client.core.command.CommandFactory;
+import com.miaoxingman.docker.client.core.command.DefaultCommandFactory;
+import com.miaoxingman.docker.client.core.command.ListImagesCmd;
+import com.miaoxingman.docker.client.core.command.PullImageCmd;
+import com.miaoxingman.docker.client.core.command.RemoveImageCmd;
+import com.miaoxingman.docker.client.core.command.VersionCmd;
 
 public class DockerClient implements Closeable {
 

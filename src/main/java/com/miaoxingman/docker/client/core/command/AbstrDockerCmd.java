@@ -1,4 +1,4 @@
-package com.miaoxingman.docker.client.command;
+package com.miaoxingman.docker.client.core.command;
 
 import com.sun.jersey.api.client.WebResource;
 import com.google.common.base.Preconditions;

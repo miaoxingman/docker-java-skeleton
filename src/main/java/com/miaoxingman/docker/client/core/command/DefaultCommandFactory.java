@@ -1,4 +1,4 @@
-package com.miaoxingman.docker.client.command;
+package com.miaoxingman.docker.client.core.command;
 
 public class DefaultCommandFactory implements CommandFactory {
 
