@@ -12,9 +12,11 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import com.google.common.base.Preconditions;
-import com.miaoxingman.docker.client.core.DockerException;
+import com.miaoxingman.docker.client.api.DockerException;
 
-public class PullImageCmd extends AbstrDockerCmd<PullImageCmd, ClientResponse> {
+public class PullImageCmd {}
+/*
+extends AbstrDockerCmd<PullImageCmd, ClientResponse> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PullImageCmd.class);
     private String repository, tag, registry;
@@ -90,3 +92,4 @@ public class PullImageCmd extends AbstrDockerCmd<PullImageCmd, ClientResponse> {
         }
     }
 }
+*/

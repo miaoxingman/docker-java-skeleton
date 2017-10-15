@@ -7,14 +7,15 @@ import java.net.URI;
 import java.util.Properties;
 
 import com.google.common.base.Preconditions;
+import com.miaoxingman.docker.client.api.DockerException;
 
-public class Config {
+public class DockerClientConfig {
     private final URI uri;
     private final String version, username, password, email;
     private final Integer readTimeout;
     private final boolean loggingFilterEnabled;
 
-    private Config(DockerClientConfigBuilder builder) {
+    private DockerClientConfig(DockerClientConfigBuilder builder) {
         this.uri = builder.uri;
         this.version = builder.version;
         this.username = builder.username;
@@ -55,10 +56,10 @@ public class Config {
     public static Properties loadIncludedDockerProperties() {
         try {
             Properties p = new Properties();
-            p.load(Config.class.getResourceAsStream("/docker.io.properties"));
+            p.load(DockerClientConfig.class.getResourceAsStream("/docker.io.properties"));
             return p;
         } catch (IOException e) {
-            throw new DockerException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -81,7 +82,7 @@ public class Config {
                     in.close();
                 }
             } catch (IOException e) {
-                throw new DockerException(e);
+                throw new RuntimeException(e);
             }
         }
         return overriddenProperties;
@@ -161,8 +162,8 @@ public class Config {
             this.loggingFilterEnabled = loggingFilterEnabled;
             return this;
         }
-        public Config build() {
-            return new Config(this);
+        public DockerClientConfig build() {
+            return new DockerClientConfig(this);
         }
 
     }

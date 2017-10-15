@@ -1,15 +1,20 @@
 package com.miaoxingman.docker.client.test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.LineIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.ITestResult;
 
-import com.miaoxingman.docker.client.core.DockerClient;
-import com.miaoxingman.docker.client.core.DockerException;
+import com.miaoxingman.docker.client.api.DockerClient;
+import com.miaoxingman.docker.client.api.DockerException;
+import com.miaoxingman.docker.client.core.DockerClientImpl;
 import com.sun.jersey.api.client.ClientResponse;
 
 public class AbstractDockerClientTest extends Assert {
@@ -22,9 +27,9 @@ public class AbstractDockerClientTest extends Assert {
     public void beforeTest() throws DockerException {
         LOG.info("======================= BEFORETEST =======================");
         LOG.info("Connecting to Testing Docker server");
-        testClient = new DockerClient();
+        testClient = new DockerClientImpl();
         LOG.info("Pulling image 'ubuntu'");
-        logResponseStream(testClient.pullImageCmd("ubuntu:latest").exec());
+        //asString(testClient.pullImageCmd("ubuntu:latest").exec());
         LOG.info("======================= END OF BEFORETEST ================\n\n");
     }
 
@@ -44,14 +49,25 @@ public class AbstractDockerClientTest extends Assert {
                 result.getName()));
     }
 
-    protected String logResponseStream(ClientResponse response) {
-        String responseString;
+    protected String asString(InputStream response)  {
+        
+        StringWriter logwriter = new StringWriter();
+        
         try {
-            responseString = DockerClient.asString(response);
+            LineIterator itr = IOUtils.lineIterator(
+                    response, "UTF-8");
+
+            while (itr.hasNext()) {
+                String line = itr.next();
+                logwriter.write(line + (itr.hasNext() ? "\n" : ""));
+                //LOG.info("line: "+line);
+            }
+            
+            return logwriter.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(response);
         }
-        LOG.info("Container log: {}", responseString);
-        return responseString;
     }
 }

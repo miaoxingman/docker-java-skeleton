@@ -17,10 +17,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.miaoxingman.docker.client.api.DockerException;
 import com.miaoxingman.docker.client.api.model.Image;
 import com.miaoxingman.docker.client.api.model.Version;
-import com.miaoxingman.docker.client.core.DockerClient;
-import com.miaoxingman.docker.client.core.DockerException;
 
 public class DockerClientTest extends AbstractDockerClientTest {
 
@@ -48,18 +47,21 @@ public class DockerClientTest extends AbstractDockerClientTest {
     @Test
     public void testDockerVersion() throws DockerException {
         Version version = testClient.versionCmd().exec();
+        LOG.info("\n**********************************\n");
         LOG.info(version.toString());
-
+        LOG.info("\n**********************************\n");
         assertTrue(version.getGoVersion().length() > 0);
         assertTrue(version.getVersion().length() > 0);
 
         assertEquals(StringUtils.split(version.getVersion(), ".").length, 3);
     }
 
+/*
     @Test
     public void testDockerListImages() throws DockerException {
         List<Image> images = testClient.listImagesCmd().exec();
         LOG.info(images.toString());
         assertTrue(images.size() != 0);
     }
+*/
 }

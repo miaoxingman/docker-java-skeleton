@@ -5,12 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
-import com.miaoxingman.docker.client.core.DockerException;
+import com.miaoxingman.docker.client.api.DockerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
-public class RemoveImageCmd extends AbstrDockerCmd<RemoveImageCmd, Void> {
+public class RemoveImageCmd {}
+/*
+extends AbstrDockerCmd<RemoveImageCmd, Void> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RemoveImageCmd.class);
     private String imageId;
@@ -87,4 +89,4 @@ public class RemoveImageCmd extends AbstrDockerCmd<RemoveImageCmd, Void> {
         }
         return null;
     }
-}
+}*/
