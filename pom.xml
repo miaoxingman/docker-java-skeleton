@@ -27,7 +27,9 @@
     <jersey.version>1.18</jersey.version>
     <jersey-apache-client4.version>1.9</jersey-apache-client4.version>
     <httpclient.version>4.2.5</httpclient.version>
+    <commons-io.version>2.3</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
+    <jackson-jaxrs.version>2.3.3</jackson-jaxrs.version>
 
     <!--test dependencies -->
     <logback.version>1.0.1</logback.version>
@@ -40,6 +42,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+        <groupId>com.fasterxml.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-json-provider</artifactId>
+        <version>${jackson-jaxrs.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-core</artifactId>
@@ -100,6 +107,12 @@
     </dependency>
 
     <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>${commons-lang.version}</version>
@@ -156,11 +169,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-   <resources>
-     <resource>
-       <directory>${basedir}</directory>
-     </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -177,6 +185,7 @@
                 <resource>
                   <includes>
                     <include>log4j.properties</include>
+                    <include>docker.io.properties</include>
                   </includes>
                 </resource>
               </resources>
